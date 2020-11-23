@@ -1,0 +1,40 @@
+{
+    "name": "vajexal/amp-mailer",
+    "description": "SMTP mailer for amphp",
+    "keywords": [
+        "smtp",
+        "amphp",
+        "mail"
+    ],
+    "require": {
+        "ext-fileinfo": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "amphp/file": "^1.0",
+        "amphp/log": "^1.1",
+        "amphp/parallel-functions": "^1.0",
+        "amphp/socket": "^1.1",
+        "egulias/email-validator": "^2.1"
+    },
+    "require-dev": {
+        "amphp/php-cs-fixer-config": "dev-master",
+        "amphp/phpunit-util": "^1.4",
+        "sebastian/diff": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vajexal\\AmpMailer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vajexal\\AmpMailer\\Tests\\": "tests"
+        },
+        "files": [
+            "tests/functions.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
