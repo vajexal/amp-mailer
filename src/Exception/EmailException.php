@@ -11,11 +11,11 @@ class EmailException extends Exception
 
     public static function invalidLocalPart(string $email): self
     {
-        return new static(sprintf('Non-ASCII characters are not supported in local part of %s', $email));
+        return new static(\sprintf('Non-ASCII characters are not supported in local part of %s', $email));
     }
 
     public static function invalidDomainPart(string $email): self
     {
-        return new static(sprintf('Invalid domain part of %s', $email));
+        return new static(\sprintf('Invalid domain part of %s', $email));
     }
 }

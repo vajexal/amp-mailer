@@ -34,6 +34,6 @@ class TestCase extends AsyncTestCase
             $differentLines[] = ($diff[$i][1] === Differ::REMOVED ? '--' : '++') . \rtrim($diff[$i][0]);
         }
 
-        $this->assertEmpty($differentLines, sprintf("Failed asserting that output matches pattern:\n%s", \implode(PHP_EOL, $differentLines)));
+        $this->assertEmpty($differentLines, \sprintf("Failed asserting that output matches pattern:\n%s", \implode(PHP_EOL, $differentLines)));
     }
 }

@@ -101,6 +101,6 @@ class MimeBuilder
 
     private function createTextNode(string $content, string $subtype)
     {
-        return new TextNode($this->encoder->encode($content), sprintf('text/%s', $subtype), 'utf-8', $this->encoder->getName());
+        return new TextNode($this->encoder->encode($content), \sprintf('text/%s', $subtype), 'utf-8', $this->encoder->getName());
     }
 }

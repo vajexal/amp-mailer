@@ -21,15 +21,15 @@ class MultipartNode implements Node
 
     public function getBody(): string
     {
-        $body = sprintf('Content-Type: multipart/%s;', $this->subtype) . SmtpDriver::LB;
-        $body .= sprintf(' boundary="%s"', $this->boundary) . SmtpDriver::LB;
+        $body = \sprintf('Content-Type: multipart/%s;', $this->subtype) . SmtpDriver::LB;
+        $body .= \sprintf(' boundary="%s"', $this->boundary) . SmtpDriver::LB;
 
         foreach ($this->nodes as $node) {
-            $body .= SmtpDriver::LB . sprintf('--%s', $this->boundary) . SmtpDriver::LB;
+            $body .= SmtpDriver::LB . \sprintf('--%s', $this->boundary) . SmtpDriver::LB;
             $body .= $node->getBody();
         }
 
-        $body .= sprintf('--%s--', $this->boundary) . SmtpDriver::LB;
+        $body .= \sprintf('--%s--', $this->boundary) . SmtpDriver::LB;
 
         return $body;
     }

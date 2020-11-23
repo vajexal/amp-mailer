@@ -26,7 +26,7 @@ class RecipientCommand implements Command
         foreach ($mail->getTo() as $address) {
             $email = $this->encoder->encode($address->getEmail());
 
-            yield $socket->send(sprintf('RCPT TO:<%s>', $email), [250, 251]);
+            yield $socket->send(\sprintf('RCPT TO:<%s>', $email), [250, 251]);
         }
     }
 }

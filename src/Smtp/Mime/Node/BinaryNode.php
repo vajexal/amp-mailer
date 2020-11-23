@@ -25,10 +25,10 @@ class BinaryNode implements Node
 
     public function getBody(): string
     {
-        return sprintf('Content-Type: %s; name=%s', $this->contentType, $this->filename) . SmtpDriver::LB .
-               sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
-               sprintf('Content-ID: %s', $this->id) . SmtpDriver::LB .
-               sprintf('Content-Disposition: %s; filename=%s', $this->disposition, $this->filename) . SmtpDriver::LB .
+        return \sprintf('Content-Type: %s; name=%s', $this->contentType, $this->filename) . SmtpDriver::LB .
+               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
+               \sprintf('Content-ID: %s', $this->id) . SmtpDriver::LB .
+               \sprintf('Content-Disposition: %s; filename=%s', $this->disposition, $this->filename) . SmtpDriver::LB .
                SmtpDriver::LB .
                $this->content . SmtpDriver::LB;
     }

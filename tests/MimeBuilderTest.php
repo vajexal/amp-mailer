@@ -31,7 +31,7 @@ class MimeBuilderTest extends TestCase
         // to generate predictable html body
         setPrivateProperty($image, 'id', '9439428065fb3a37788e3a7.47570044');
 
-        $mail->html(sprintf('Test <img src="%s" alt="Image example">', $mail->embed($image)));
+        $mail->html(\sprintf('Test <img src="%s" alt="Image example">', $mail->embed($image)));
 
         $body = $this->mimeBuilder->build($mail)->getBody();
 

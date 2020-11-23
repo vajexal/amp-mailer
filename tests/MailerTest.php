@@ -4,7 +4,6 @@ namespace Vajexal\AmpMailer\Tests;
 
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Mailer;
-use Vajexal\AmpMailer\MailerBuilder;
 use Vajexal\AmpMailer\Smtp\ConnectionConfig;
 use Vajexal\AmpMailer\Smtp\SmtpDriver;
 

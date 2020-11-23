@@ -25,6 +25,6 @@ class MailCommand implements Command
 
         $email = $this->encoder->encode($mail->getFrom()->getEmail());
 
-        yield $socket->send(sprintf('MAIL FROM:<%s>', $email), [250]);
+        yield $socket->send(\sprintf('MAIL FROM:<%s>', $email), [250]);
     }
 }

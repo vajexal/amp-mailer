@@ -21,8 +21,8 @@ class TextNode implements Node
 
     public function getBody(): string
     {
-        return sprintf('Content-Type: %s; charset=%s', $this->contentType, $this->charset) . SmtpDriver::LB .
-               sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
+        return \sprintf('Content-Type: %s; charset=%s', $this->contentType, $this->charset) . SmtpDriver::LB .
+               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
                SmtpDriver::LB .
                $this->content . SmtpDriver::LB;
     }
