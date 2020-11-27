@@ -5,7 +5,9 @@ namespace Vajexal\AmpMailer;
 use Amp\File;
 use Amp\Promise;
 use Vajexal\AmpMailer\Exception\AttachmentException;
+use Vajexal\AmpMimeType\MimeTypeGuesser;
 use function Amp\call;
+use function Vajexal\AmpMimeType\mimeTypeGuesser;
 
 class Attachment
 {
@@ -31,7 +33,8 @@ class Attachment
     {
         return call(function () use ($path, $mimeType) {
             if (!$mimeType) {
-                $mimeTypeGuesser = DiLocator::mimeTypeGuesser();
+                /** @var MimeTypeGuesser $mimeTypeGuesser */
+                $mimeTypeGuesser = yield mimeTypeGuesser();
 
                 $mimeType = yield $mimeTypeGuesser->guess($path);
             }

@@ -7,18 +7,18 @@
         "mail"
     ],
     "require": {
-        "ext-fileinfo": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
         "amphp/file": "^1.0",
         "amphp/log": "^1.1",
-        "amphp/parallel-functions": "^1.0",
         "amphp/socket": "^1.1",
-        "egulias/email-validator": "^2.1"
+        "egulias/email-validator": "^2.1",
+        "vajexal/amp-mime-type": "dev-master"
     },
     "require-dev": {
         "amphp/php-cs-fixer-config": "dev-master",
         "amphp/phpunit-util": "^1.4",
+        "amphp/process": "^1.1",
         "sebastian/diff": "^4.0"
     },
     "autoload": {

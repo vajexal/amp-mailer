@@ -34,8 +34,6 @@ use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\PunycodeEmailEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Header\HeaderEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Header\QpMimeEncoder;
-use Vajexal\AmpMailer\Smtp\Mime\Guesser\MimeTypeGuesser;
-use Vajexal\AmpMailer\Smtp\Mime\Guesser\ParallelMimeTypeGuesser;
 use Vajexal\AmpMailer\Smtp\Mime\MimeBuilder;
 
 class DiLocator
@@ -98,11 +96,6 @@ class DiLocator
     public static function mimeBuilder(): MimeBuilder
     {
         return new MimeBuilder(self::bodyEncoder());
-    }
-
-    public static function mimeTypeGuesser(): MimeTypeGuesser
-    {
-        return new ParallelMimeTypeGuesser;
     }
 
     public static function hostDetector(): HostDetector
