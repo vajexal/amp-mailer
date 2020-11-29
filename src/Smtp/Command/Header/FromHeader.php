@@ -4,25 +4,17 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Smtp\Command\Header;
 
-use Vajexal\AmpMailer\Exception\MailException;
 use Vajexal\AmpMailer\Mail;
-use Vajexal\AmpMailer\Smtp\AddressFormatter;
 
-class FromHeader implements Header
+class FromHeader extends AddressListHeader
 {
-    private AddressFormatter $addressFormatter;
-
-    public function __construct(AddressFormatter $addressFormatter)
+    protected function getHeaderName(): string
     {
-        $this->addressFormatter = $addressFormatter;
+        return 'From';
     }
 
-    public function get(Mail $mail): string
+    protected function getAddressList(Mail $mail): array
     {
-        if (!$mail->getFrom()) {
-            throw MailException::emptyFrom();
-        }
-
-        return 'From: ' . $this->addressFormatter->format($mail->getFrom());
+        return [$mail->getFrom()];
     }
 }

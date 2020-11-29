@@ -4,24 +4,17 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Smtp\Command\Header;
 
-use Vajexal\AmpMailer\Address;
 use Vajexal\AmpMailer\Mail;
-use Vajexal\AmpMailer\Smtp\AddressFormatter;
-use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
-class CcHeader implements Header
+class CcHeader extends AddressListHeader
 {
-    private AddressFormatter $addressFormatter;
-
-    public function __construct(AddressFormatter $addressFormatter)
+    protected function getHeaderName(): string
     {
-        $this->addressFormatter = $addressFormatter;
+        return 'Cc';
     }
 
-    public function get(Mail $mail): string
+    protected function getAddressList(Mail $mail): array
     {
-        $addressList = \array_map(fn (Address $address) => $this->addressFormatter->format($address), $mail->getCc());
-
-        return 'Cc: ' . \implode(\sprintf(',%s ', SMTP_LINE_BREAK), $addressList);
+        return $mail->getCc();
     }
 }
