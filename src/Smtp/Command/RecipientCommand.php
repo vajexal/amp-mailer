@@ -2,9 +2,9 @@
 
 namespace Vajexal\AmpMailer\Smtp\Command;
 
+use Vajexal\AmpMailer\Exception\MailException;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
-use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
 use Vajexal\AmpMailer\Smtp\SmtpSocket;
 
@@ -20,7 +20,7 @@ class RecipientCommand implements Command
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
         if (!$mail->getTo()) {
-            throw SmtpException::emptyRecipient();
+            throw MailException::emptyRecipients();
         }
 
         foreach ($mail->getTo() as $address) {
