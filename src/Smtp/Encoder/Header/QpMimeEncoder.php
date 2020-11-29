@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Smtp\Encoder\Header;
 
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
+use const Vajexal\AmpMailer\Smtp\SMTP_MIME_MAX_LINE_LENGTH;
 
 class QpMimeEncoder implements HeaderEncoder
 {
@@ -16,8 +17,8 @@ class QpMimeEncoder implements HeaderEncoder
 
         $text = \iconv_mime_encode('', $text, [
             'scheme'           => 'B',
-            'line-length'      => SmtpDriver::MIME_MAX_LINE_LENGTH,
-            'line-break-chars' => SmtpDriver::LB,
+            'line-length'      => SMTP_MIME_MAX_LINE_LENGTH,
+            'line-break-chars' => SMTP_LINE_BREAK,
         ]);
 
         return \substr($text, 2);

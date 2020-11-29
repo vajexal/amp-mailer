@@ -11,9 +11,9 @@ use Vajexal\AmpMailer\Smtp\Command\Header\Header;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Header\HeaderEncoder;
 use Vajexal\AmpMailer\Smtp\Mime\MimeBuilder;
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
 use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class DataCommand implements Command
 {
@@ -36,7 +36,7 @@ class DataCommand implements Command
 
         /** @var Header $header */
         foreach ($this->getHeaders($mail) as $header) {
-            $message .= $header->get($mail) . SmtpDriver::LB;
+            $message .= $header->get($mail) . SMTP_LINE_BREAK;
         }
 
         $message .= $this->mimeBuilder->build($mail)->getBody();

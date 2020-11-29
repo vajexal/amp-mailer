@@ -17,12 +17,12 @@ use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use function Amp\call;
 use function Amp\Socket\connect;
 
+const SMTP_MIME_MAX_LINE_LENGTH = 76;
+const SMTP_MAX_BOUNDARY_LENGTH  = 70;
+const SMTP_LINE_BREAK = "\r\n";
+
 class SmtpDriver implements Driver
 {
-    const MIME_MAX_LINE_LENGTH = 76;
-    const MAX_BOUNDARY_LENGTH  = 70;
-    const LB                   = "\r\n";
-
     private ConnectionConfig $connectionConfig;
     private LoggerInterface  $logger;
     private bool             $isTlsRequired = true;

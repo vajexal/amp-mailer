@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Smtp\Mime\Node;
 
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class BinaryNode implements Node
 {
@@ -27,11 +27,11 @@ class BinaryNode implements Node
 
     public function getBody(): string
     {
-        return \sprintf('Content-Type: %s; name=%s', $this->contentType, $this->filename) . SmtpDriver::LB .
-               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
-               \sprintf('Content-ID: %s', $this->id) . SmtpDriver::LB .
-               \sprintf('Content-Disposition: %s; filename=%s', $this->disposition, $this->filename) . SmtpDriver::LB .
-               SmtpDriver::LB .
-               $this->content . SmtpDriver::LB;
+        return \sprintf('Content-Type: %s; name=%s', $this->contentType, $this->filename) . SMTP_LINE_BREAK .
+               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SMTP_LINE_BREAK .
+               \sprintf('Content-ID: %s', $this->id) . SMTP_LINE_BREAK .
+               \sprintf('Content-Disposition: %s; filename=%s', $this->disposition, $this->filename) . SMTP_LINE_BREAK .
+               SMTP_LINE_BREAK .
+               $this->content . SMTP_LINE_BREAK;
     }
 }

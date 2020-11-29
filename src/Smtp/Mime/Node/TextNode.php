@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Smtp\Mime\Node;
 
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class TextNode implements Node
 {
@@ -23,9 +23,9 @@ class TextNode implements Node
 
     public function getBody(): string
     {
-        return \sprintf('Content-Type: %s; charset=%s', $this->contentType, $this->charset) . SmtpDriver::LB .
-               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SmtpDriver::LB .
-               SmtpDriver::LB .
-               $this->content . SmtpDriver::LB;
+        return \sprintf('Content-Type: %s; charset=%s', $this->contentType, $this->charset) . SMTP_LINE_BREAK .
+               \sprintf('Content-Transfer-Encoding: %s', $this->encoding) . SMTP_LINE_BREAK .
+               SMTP_LINE_BREAK .
+               $this->content . SMTP_LINE_BREAK;
     }
 }

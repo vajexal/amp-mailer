@@ -25,7 +25,7 @@ class SmtpSocket
     {
         return call(function () use ($message, $expectedCodes) {
             $this->logger->debug('C: ' . $message);
-            yield $this->socket->write($message . SmtpDriver::LB);
+            yield $this->socket->write($message . SMTP_LINE_BREAK);
 
             $response = yield $this->socket->read();
             $this->logger->debug('S: ' . $response);

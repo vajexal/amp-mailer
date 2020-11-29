@@ -7,7 +7,7 @@ namespace Vajexal\AmpMailer\Tests;
 use Amp\Socket\ResourceSocket;
 use Amp\Socket\Server;
 use Amp\Socket\SocketAddress;
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 use function Amp\call;
 use function Amp\Promise\rethrow;
 
@@ -32,7 +32,7 @@ class DumpSmtpServer
             /** @var ResourceSocket $socket */
             $socket = yield $this->server->accept();
             $socket->unreference();
-            yield $socket->write('220 localhost' . SmtpDriver::LB);
+            yield $socket->write('220 localhost' . SMTP_LINE_BREAK);
 
             while (($chunk = yield $socket->read()) !== null) {
                 $this->content .= $chunk;
@@ -43,7 +43,7 @@ class DumpSmtpServer
                     continue;
                 }
 
-                yield $socket->write(self::RESPONSES[$command] . ' OK' . SmtpDriver::LB);
+                yield $socket->write(self::RESPONSES[$command] . ' OK' . SMTP_LINE_BREAK);
 
                 if ($command === 'QUIT') {
                     $socket->close();
@@ -52,7 +52,7 @@ class DumpSmtpServer
 
                 if ($command === 'DATA') {
                     $this->content .= yield $socket->read();
-                    yield $socket->write('250 OK' . SmtpDriver::LB);
+                    yield $socket->write('250 OK' . SMTP_LINE_BREAK);
                 }
             }
         }));

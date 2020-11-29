@@ -25,11 +25,11 @@ class AddressFormatter
             $name  = $this->headerEncoder->encode($address->getName());
             $email = $this->emailEncoder->encode($address->getEmail());
 
-            $nameLines = \explode(SmtpDriver::LB, $name);
+            $nameLines = \explode(SMTP_LINE_BREAK, $name);
             $lastLine  = \sprintf('%s <%s>', \end($nameLines), $email);
 
-            if (\strlen($lastLine) > SmtpDriver::MIME_MAX_LINE_LENGTH) {
-                $name .= SmtpDriver::LB;
+            if (\strlen($lastLine) > SMTP_MIME_MAX_LINE_LENGTH) {
+                $name .= SMTP_LINE_BREAK;
             }
 
             return \sprintf('%s <%s>', $name, $email);

@@ -7,7 +7,7 @@ namespace Vajexal\AmpMailer\Smtp\Command\Header;
 use Vajexal\AmpMailer\Address;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\AddressFormatter;
-use Vajexal\AmpMailer\Smtp\SmtpDriver;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class BccHeader implements Header
 {
@@ -22,6 +22,6 @@ class BccHeader implements Header
     {
         $addressList = \array_map(fn (Address $address) => $this->addressFormatter->format($address), $mail->getBcc());
 
-        return 'Bcc: ' . \implode(\sprintf(',%s ', SmtpDriver::LB), $addressList);
+        return 'Bcc: ' . \implode(\sprintf(',%s ', SMTP_LINE_BREAK), $addressList);
     }
 }
