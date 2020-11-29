@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Command\Header;
 
 use Vajexal\AmpMailer\HostDetector;
@@ -16,6 +18,6 @@ class MessageIdHeader implements Header
 
     public function get(Mail $mail): string
     {
-        return \sprintf('Message-ID: <%s@%s>', \uniqid(\mt_rand(), true), $this->hostDetector->getHost());
+        return \sprintf('Message-ID: <%s@%s>', \uniqid((string) \mt_rand(), true), $this->hostDetector->getHost());
     }
 }

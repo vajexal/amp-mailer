@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer;
 
 use Amp\File;
@@ -50,7 +52,7 @@ class Attachment
         $attachment = new self;
 
         $attachment->content  = $content;
-        $attachment->id       = \uniqid(\mt_rand(), true);
+        $attachment->id       = \uniqid((string) \mt_rand(), true);
         $attachment->filename = $filename;
         $attachment->mime     = $mimeType;
 

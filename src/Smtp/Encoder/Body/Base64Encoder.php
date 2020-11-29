@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Encoder\Body;
 
 use Vajexal\AmpMailer\Smtp\SmtpDriver;

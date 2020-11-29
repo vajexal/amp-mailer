@@ -11,6 +11,8 @@ composer require vajexal/amp-mailer:dev-master
 ```php
 <?php
 
+declare(strict_types=1);
+
 use Amp\Loop;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\MailerBuilder;

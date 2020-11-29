@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Command;
 
 use Vajexal\AmpMailer\HostDetector;

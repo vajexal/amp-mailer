@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Exception;
 
 use Vajexal\AmpMailer\Exception\Exception;

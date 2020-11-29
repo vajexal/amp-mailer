@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Command\Header;
 
 use Vajexal\AmpMailer\Address;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vajexal\AmpMailer\Smtp\Mime\Node;
 
 use Vajexal\AmpMailer\Smtp\SmtpDriver;
