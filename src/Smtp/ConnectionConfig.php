@@ -24,23 +24,9 @@ class ConnectionConfig
         return $this->host;
     }
 
-    public function setHost(string $host): self
-    {
-        $this->host = $host;
-
-        return $this;
-    }
-
     public function getPort(): int
     {
         return $this->port;
-    }
-
-    public function setPort(int $port): self
-    {
-        $this->port = $port;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -65,5 +51,10 @@ class ConnectionConfig
         $this->password = $password;
 
         return $this;
+    }
+
+    public function hasCredentials(): bool
+    {
+        return $this->username && $this->password;
     }
 }

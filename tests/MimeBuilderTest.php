@@ -19,8 +19,6 @@ class MimeBuilderTest extends TestCase
         parent::setUp();
 
         $this->mimeBuilder = DiLocator::mimeBuilder();
-
-        $this->setTimeout(10000);
     }
 
     public function testBuildComplexBody()

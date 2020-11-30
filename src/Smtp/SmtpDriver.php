@@ -115,7 +115,7 @@ class SmtpDriver implements Driver
                 yield $executor->execute(DiLocator::ehloCommand());
             }
 
-            if ($server->supportsAuth()) {
+            if ($server->supportsAuth() && $this->connectionConfig->hasCredentials()) {
                 yield $executor->execute(DiLocator::authCommand());
             }
         });

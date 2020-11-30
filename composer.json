@@ -16,6 +16,8 @@
         "vajexal/amp-mime-type": "dev-master"
     },
     "require-dev": {
+        "ext-json": "*",
+        "amphp/http-client": "^4.5",
         "amphp/php-cs-fixer-config": "dev-master",
         "amphp/phpunit-util": "^1.4",
         "amphp/process": "^1.1",

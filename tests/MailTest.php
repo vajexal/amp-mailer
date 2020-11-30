@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Vajexal\AmpMailer\Tests;
 
+use Amp\Success;
+use Vajexal\AmpMailer\Driver;
 use Vajexal\AmpMailer\Exception\EmailException;
 use Vajexal\AmpMailer\Exception\MailException;
 use Vajexal\AmpMailer\Mail;
@@ -17,7 +19,11 @@ class MailTest extends TestCase
     {
         parent::setUp();
 
-        $this->mailer = new Mailer(new EmptyDriver);
+        $driver = $this->createConfiguredMock(Driver::class, [
+            'send' => new Success,
+        ]);
+
+        $this->mailer = new Mailer($driver);
 
         $this->setTimeout(2000);
     }
