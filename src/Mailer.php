@@ -8,19 +8,26 @@ use Amp\Promise;
 
 class Mailer
 {
-    private Driver $driver;
+    private Driver        $driver;
     private MailValidator $validator;
 
     public function __construct(Driver $driver)
     {
-        $this->driver = $driver;
+        $this->driver    = $driver;
         $this->validator = DiLocator::mailValidator();
     }
 
     public function send(Mail $mail): Promise
     {
-        $this->validator->validate($mail);
+        return $this->sendMany([$mail]);
+    }
 
-        return $this->driver->send($mail);
+    public function sendMany(array $mails): Promise
+    {
+        foreach ($mails as $mail) {
+            $this->validator->validate($mail);
+        }
+
+        return $this->driver->send($mails);
     }
 }

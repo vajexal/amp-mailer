@@ -19,7 +19,7 @@ use function Amp\Socket\connect;
 
 const SMTP_MIME_MAX_LINE_LENGTH = 76;
 const SMTP_MAX_BOUNDARY_LENGTH  = 70;
-const SMTP_LINE_BREAK = "\r\n";
+const SMTP_LINE_BREAK           = "\r\n";
 
 class SmtpDriver implements Driver
 {
@@ -33,34 +33,37 @@ class SmtpDriver implements Driver
         $this->logger           = $logger ?: new NullLogger;
     }
 
-    public function send(Mail $mail): Promise
+    public function send(array $mails): Promise
     {
-        return call(function () use ($mail) {
+        return call(function () use ($mails) {
             $tcpSocket = yield $this->openTcpSocket();
             $socket    = new SmtpSocket($tcpSocket, $this->logger);
             $server    = new SmtpServer($this->connectionConfig);
-            $executor  = new CommandExecutor($socket, $server, $mail);
+            $executor  = new CommandExecutor($socket, $server, new Mail);
 
             yield $this->startSession($executor, $server);
 
-            $to  = $mail->getTo();
-            $bcc = $mail->getBcc();
+            /** @var Mail $mail */
+            foreach ($mails as $mail) {
+                $mail = clone $mail; // hope html property is not too big
 
-            $mail->setBcc([]);
+                $bcc = $mail->getBcc();
 
-            if ($mail->getTo()) {
-                yield $this->performSend($executor);
+                $mail->setBcc([]);
+
+                $executor->setMail($mail);
+
+                if ($mail->getTo()) {
+                    yield $this->performSend($executor);
+                }
+
+                foreach ($bcc as $address) {
+                    $mail->setTo([$address]);
+                    $mail->setBcc([$address]);
+
+                    yield $this->performSend($executor);
+                }
             }
-
-            foreach ($bcc as $address) {
-                $mail->setTo([$address]);
-                $mail->setBcc([$address]);
-
-                yield $this->performSend($executor);
-            }
-
-            $mail->setBcc($bcc);
-            $mail->setTo($to);
 
             yield $executor->execute(DiLocator::quitCommand());
 

@@ -77,3 +77,20 @@ $mail = new Mail;
 
 $mail->html('<img src="' . $mail->embed(yield Attachment::fromPath('image.png')) . '" alt="Embedding example">');
 ```
+
+#### Sending few emails
+
+```php
+use Vajexal\AmpMailer\Mail;
+
+$mails = array_map(
+    fn($name) => (new Mail)
+        ->from('foo@example.com')
+        ->to(sprintf('%s@example.com', mb_strtolower($name)))
+        ->subject('Hello')
+        ->text(sprintf('Hello %s', $name)),
+    ['Bar', 'Baz']
+);
+
+yield $mailer->sendMany($mails);
+```

@@ -8,5 +8,9 @@ use Amp\Promise;
 
 interface Driver
 {
-    public function send(Mail $mail): Promise;
+    /**
+     * @param Mail[] $mails
+     * @return Promise<void>
+     */
+    public function send(array $mails): Promise;
 }
