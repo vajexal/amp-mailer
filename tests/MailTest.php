@@ -18,6 +18,8 @@ class MailTest extends TestCase
         parent::setUp();
 
         $this->mailer = new Mailer(new EmptyDriver);
+
+        $this->setTimeout(2000);
     }
 
     public function testInvalidEmail()
