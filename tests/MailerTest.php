@@ -71,11 +71,11 @@ QUIT\r
     public function testFewRecipients()
     {
         $mail = (new Mail)
-            ->from('foo1@example.com')
-            ->replyTo('foo2@example.com', 'foo2')
-            ->to('bar1@example.com', 'bar1')
-            ->cc('baz1@example.com', 'baz1')
-            ->cc('baz2@example.com')
+            ->from('from@example.com')
+            ->replyTo('reply@example.com', 'reply')
+            ->to('to@example.com', 'to')
+            ->cc('cc1@example.com', 'cc1')
+            ->cc('cc2@example.com')
             ->subject('Test')
             ->text('Test');
 
@@ -83,15 +83,17 @@ QUIT\r
 
         $this->assertOutputMatchesPattern(
             "EHLO [\w.]+\r
-MAIL FROM:<foo1@example.com>\r
-RCPT TO:<bar1@example.com>\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<to@example.com>\r
+RCPT TO:<cc1@example.com>\r
+RCPT TO:<cc2@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
-From: foo1@example.com\r
-Reply-To: foo2 <foo2@example.com>\r
-To: bar1 <bar1@example.com>\r
-Cc: baz1 <baz1@example.com>,\r
- baz2@example.com\r
+From: from@example.com\r
+Reply-To: reply <reply@example.com>\r
+To: to <to@example.com>\r
+Cc: cc1 <cc1@example.com>,\r
+ cc2@example.com\r
 Message-ID: <[\w.]+@[\w.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
@@ -109,9 +111,12 @@ QUIT\r
     public function testBcc()
     {
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->bcc('bar@example.com')
-            ->bcc('baz@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
+            ->replyTo('reply@example.com')
+            ->cc('cc@example.com')
+            ->bcc('bcc1@example.com')
+            ->bcc('bcc2@example.com')
             ->subject('Test')
             ->text('Test');
 
@@ -119,13 +124,15 @@ QUIT\r
 
         $this->assertOutputMatchesPattern(
             "EHLO [\w.]+\r
-MAIL FROM:<foo@example.com>\r
-RCPT TO:<bar@example.com>\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<to@example.com>\r
+RCPT TO:<cc@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
-From: foo@example.com\r
-To: bar@example.com\r
-Bcc: bar@example.com\r
+From: from@example.com\r
+Reply-To: reply@example.com\r
+To: to@example.com\r
+Cc: cc@example.com\r
 Message-ID: <[\w.]+@[\w.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
@@ -134,13 +141,32 @@ Content-Transfer-Encoding: base64\r
 \r
 VGVzdA==\r
 .\r
-MAIL FROM:<foo@example.com>\r
-RCPT TO:<baz@example.com>\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<bcc1@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
-From: foo@example.com\r
-To: baz@example.com\r
-Bcc: baz@example.com\r
+From: from@example.com\r
+Reply-To: reply@example.com\r
+To: to@example.com\r
+Cc: cc@example.com\r
+Bcc: bcc1@example.com\r
+Message-ID: <[\w.]+@[\w.]+>\r
+Subject: Test\r
+MIME-Version: 1.0\r
+Content-Type: text/plain; charset=utf-8\r
+Content-Transfer-Encoding: base64\r
+\r
+VGVzdA==\r
+.\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<bcc2@example.com>\r
+DATA\r
+Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
+From: from@example.com\r
+Reply-To: reply@example.com\r
+To: to@example.com\r
+Cc: cc@example.com\r
+Bcc: bcc2@example.com\r
 Message-ID: <[\w.]+@[\w.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r

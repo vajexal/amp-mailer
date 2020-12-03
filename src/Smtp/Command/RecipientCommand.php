@@ -25,7 +25,9 @@ class RecipientCommand implements Command
             throw MailException::emptyRecipients();
         }
 
-        foreach ($mail->getTo() as $address) {
+        $addresses = $mail->getBcc() ?: \array_merge($mail->getTo(), $mail->getCc());
+
+        foreach ($addresses as $address) {
             $email = $this->encoder->encode($address->getEmail());
 
             yield $socket->send(\sprintf('RCPT TO:<%s>', $email), [250, 251]);

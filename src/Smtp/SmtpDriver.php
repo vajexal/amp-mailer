@@ -54,7 +54,6 @@ class SmtpDriver implements Driver
                 }
 
                 foreach ($bcc as $address) {
-                    $mail->setTo([$address]);
                     $mail->setBcc([$address]);
 
                     yield $this->performSend($executor);
