@@ -17,10 +17,6 @@ use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use function Amp\call;
 use function Amp\Socket\connect;
 
-const SMTP_MIME_MAX_LINE_LENGTH = 76;
-const SMTP_MAX_BOUNDARY_LENGTH  = 70;
-const SMTP_LINE_BREAK           = "\r\n";
-
 class SmtpDriver implements Driver
 {
     private ConnectionConfig $connectionConfig;
