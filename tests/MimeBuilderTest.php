@@ -39,7 +39,7 @@ class MimeBuilderTest extends TestCase
 
         $pattern = yield File\get('tests/dumps/complex.txt');
 
-        $this->assertOutputMatchesPattern($pattern, $body);
+        $this->assertOutputMatchesPatternLineByLine($pattern, $body);
     }
 
     public function testBuildAttachment()
@@ -53,6 +53,6 @@ class MimeBuilderTest extends TestCase
 
         $pattern = yield File\get('tests/dumps/attachment.txt');
 
-        $this->assertOutputMatchesPattern($pattern, $body);
+        $this->assertOutputMatchesPatternLineByLine($pattern, $body);
     }
 }

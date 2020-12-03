@@ -6,6 +6,7 @@ namespace Vajexal\AmpMailer\Tests;
 
 use Amp\PHPUnit\AsyncTestCase;
 use SebastianBergmann\Diff\Differ;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class TestCase extends AsyncTestCase
 {
@@ -37,5 +38,37 @@ class TestCase extends AsyncTestCase
         }
 
         $this->assertEmpty($differentLines, \sprintf("Failed asserting that output matches pattern:\n%s", \implode(PHP_EOL, $differentLines)));
+    }
+
+    protected function assertOutputMatchesPatternLineByLine(string $pattern, string $output, string $delimiter = SMTP_LINE_BREAK): void
+    {
+        $patternLines = \explode($delimiter, $pattern);
+        $outputLines  = \explode($delimiter, $output);
+
+        if (\count($patternLines) !== \count($outputLines)) {
+            $this->fail('Pattern lines count != output lines count. Use assertOutputMatchesPattern for more detailed comparison');
+        }
+
+        $differentLines = [];
+
+        for ($i = 0; $i < \count($patternLines); $i++) {
+            if ($patternLines[$i] === $outputLines[$i]) {
+                continue;
+            }
+
+            if (\preg_match(\sprintf('/^%s$/', $patternLines[$i]), $outputLines[$i])) {
+                continue;
+            }
+
+            $differentLines[] = \sprintf('%d: %s - %s', $i, $patternLines[$i], $outputLines[$i]);
+        }
+
+        $this->assertEmpty(
+            $differentLines,
+            \sprintf(
+                "Failed asserting that output matches pattern (use assertOutputMatchesPattern for more detailed comparison):\n%s",
+                \implode(PHP_EOL, $differentLines)
+            )
+        );
     }
 }
