@@ -49,8 +49,8 @@ class MailerTest extends TestCase
             ->build();
 
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
             ->subject('Test')
             ->text('Test');
 
@@ -60,8 +60,8 @@ class MailerTest extends TestCase
     public function testUnicode()
     {
         $mail = (new Mail)
-            ->from('foo@example.com', 'Иванов')
-            ->to('bar@example.com', 'Петров')
+            ->from('from@example.com', 'Отправитель')
+            ->to('to@example.com', 'Получатель')
             ->subject('Тайтл')
             ->text('Тест');
 
@@ -76,10 +76,10 @@ class MailerTest extends TestCase
         /** @var Message $message */
         $message = $messages[0];
 
-        $this->assertEquals('foo@example.com', $message->getFrom()->getEmail());
-        $this->assertEquals('Иванов', $message->getFrom()->getName());
-        $this->assertEquals('bar@example.com', $message->getTo()->getEmail());
-        $this->assertEquals('Петров', $message->getTo()->getName());
+        $this->assertEquals('from@example.com', $message->getFrom()->getEmail());
+        $this->assertEquals('Отправитель', $message->getFrom()->getName());
+        $this->assertEquals('to@example.com', $message->getTo()->getEmail());
+        $this->assertEquals('Получатель', $message->getTo()->getName());
         $this->assertEquals('Тайтл', $message->getSubject());
         $this->assertEquals('Тест', yield $this->mailtrapClient->getMessageText($message));
     }

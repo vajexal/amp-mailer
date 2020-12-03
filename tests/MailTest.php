@@ -34,7 +34,7 @@ class MailTest extends TestCase
         $this->expectExceptionMessage('Email hack is invalid');
 
         $mail = (new Mail)
-            ->from('foo@example.com')
+            ->from('from@example.com')
             ->to('hack')
             ->text('Test');
 
@@ -47,7 +47,7 @@ class MailTest extends TestCase
         $this->expectExceptionMessage('Empty recipients');
 
         $mail = (new Mail)
-            ->from('foo@example.com')
+            ->from('from@example.com')
             ->text('Test');
 
         yield $this->mailer->send($mail);
@@ -59,8 +59,8 @@ class MailTest extends TestCase
         $this->expectExceptionMessage('Mail has no content');
 
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com');
+            ->from('from@example.com')
+            ->to('to@example.com');
 
         yield $this->mailer->send($mail);
     }
@@ -71,7 +71,7 @@ class MailTest extends TestCase
         $this->expectExceptionMessage('Empty from');
 
         $mail = (new Mail)
-            ->to('bar@example.com')
+            ->to('to@example.com')
             ->text('Test');
 
         yield $this->mailer->send($mail);

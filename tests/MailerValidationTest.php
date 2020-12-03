@@ -58,7 +58,7 @@ class MailerValidationTest extends TestCase
 
         $mail = (new Mail)
             ->from($email)
-            ->to('bar@example.com')
+            ->to('from@example.com')
             ->subject('Test')
             ->text('Test');
 
@@ -76,8 +76,8 @@ class MailerValidationTest extends TestCase
             ->build();
 
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
             ->subject('Test')
             ->text('Test');
 

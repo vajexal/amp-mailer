@@ -24,8 +24,8 @@ class MimeBuilderTest extends TestCase
     public function testBuildComplexBody()
     {
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
             ->text('Test')
             ->attach(yield Attachment::fromPath('tests/fixtures/doc.pdf'));
 
@@ -45,8 +45,8 @@ class MimeBuilderTest extends TestCase
     public function testBuildAttachment()
     {
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
             ->attach(yield Attachment::fromPath('tests/fixtures/doc.pdf'));
 
         $body = $this->mimeBuilder->build($mail)->getBody();

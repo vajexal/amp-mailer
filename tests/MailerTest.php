@@ -39,8 +39,8 @@ class MailerTest extends TestCase
     public function testSendingEmail()
     {
         $mail = (new Mail)
-            ->from('foo@example.com')
-            ->to('bar@example.com')
+            ->from('from@example.com')
+            ->to('to@example.com')
             ->subject('Test')
             ->text('Test');
 
@@ -48,12 +48,12 @@ class MailerTest extends TestCase
 
         $this->assertOutputMatchesPattern(
             "EHLO [\w.]+\r
-MAIL FROM:<foo@example.com>\r
-RCPT TO:<bar@example.com>\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<to@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
-From: foo@example.com\r
-To: bar@example.com\r
+From: from@example.com\r
+To: to@example.com\r
 Message-ID: <[\w.]+@[\w.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r

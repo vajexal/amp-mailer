@@ -28,8 +28,8 @@ Loop::run(function () {
         ->build();
 
     $mail = (new Mail)
-        ->from('foo@example.com')
-        ->to('bar@example.com')
+        ->from('from@example.com')
+        ->to('to@example.com')
         ->subject('Test')
         ->text('Test');
 
@@ -43,15 +43,15 @@ Loop::run(function () {
 use Vajexal\AmpMailer\Mail;
 
 $mail = (new Mail)
-    ->from('foo@example.com', 'foo') // email and username
-    ->replyTo('foo2@example.com', 'foo2')
-    ->replyTo('foo3@example.com')
-    ->to('bar1@example.com', 'bar1')
-    ->to('bar2@example.com')
-    ->cc('baz1@example.com', 'baz1')
-    ->cc('baz2@example.com')
-    ->bcc('qux1@example.com', 'qux1')
-    ->bcc('qux2@example.com')
+    ->from('from@example.com', 'from') // email and username
+    ->replyTo('reply1@example.com', 'reply1')
+    ->replyTo('reply2@example.com')
+    ->to('to1@example.com', 'to1')
+    ->to('to2@example.com')
+    ->cc('cc1@example.com', 'cc1')
+    ->cc('cc2@example.com')
+    ->bcc('bcc1@example.com', 'bcc1')
+    ->bcc('bcc2@example.com')
     ->subject('Test')
     ->text('Test')
     ->html('<b>Test</b>');
@@ -83,12 +83,12 @@ $mail->html('<img src="' . $mail->embed(yield Attachment::fromPath('image.png'))
 ```php
 use Vajexal\AmpMailer\Mail;
 
-$mails = array_map(
-    fn($name) => (new Mail)
-        ->from('foo@example.com')
-        ->to(sprintf('%s@example.com', mb_strtolower($name)))
+$mails = \array_map(
+    fn ($name) => (new Mail)
+        ->from('from@example.com')
+        ->to(\sprintf('%s@example.com', \mb_strtolower($name)))
         ->subject('Hello')
-        ->text(sprintf('Hello %s', $name)),
+        ->text(\sprintf('Hello %s', $name)),
     ['Bar', 'Baz']
 );
 
