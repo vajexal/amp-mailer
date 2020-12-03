@@ -22,7 +22,7 @@ class Mailer
         return $this->sendMany([$mail]);
     }
 
-    public function sendMany(array $mails): Promise
+    public function sendMany(iterable $mails): Promise
     {
         foreach ($mails as $mail) {
             $this->validator->validate($mail);

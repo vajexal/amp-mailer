@@ -12,5 +12,5 @@ interface Driver
      * @param Mail[] $mails
      * @return Promise<void>
      */
-    public function send(array $mails): Promise;
+    public function send(iterable $mails): Promise;
 }

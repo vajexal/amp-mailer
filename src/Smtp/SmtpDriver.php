@@ -33,7 +33,7 @@ class SmtpDriver implements Driver
         $this->logger           = $logger ?: new NullLogger;
     }
 
-    public function send(array $mails): Promise
+    public function send(iterable $mails): Promise
     {
         return call(function () use ($mails) {
             $tcpSocket = yield $this->openTcpSocket();
