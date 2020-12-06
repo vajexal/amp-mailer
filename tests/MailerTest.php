@@ -180,4 +180,36 @@ QUIT\r
             $this->smtpServer->getContent()
         );
     }
+
+    public function testLineBreaksInjection()
+    {
+        $mail = (new Mail)
+            ->from('from@example.com')
+            ->to('to@example.com', "to\r\nTo: hack@example.com")
+            ->subject("Test\r\nMIME-Version: 1.1")
+            ->text("Test\r\n.\r\nQUIT");
+
+        yield $this->mailer->send($mail);
+
+        $this->assertOutputMatchesPattern(
+            "EHLO [\w.]+\r
+MAIL FROM:<from@example.com>\r
+RCPT TO:<to@example.com>\r
+DATA\r
+Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
+From: from@example.com\r
+To: =?UTF-8?B?dG9UbzogaGFja0BleGFtcGxlLmNvbQ==?= <to@example.com>\r
+Message-ID: <[\w.]+@[\w.]+>\r
+Subject: =?UTF-8?B?VGVzdE1JTUUtVmVyc2lvbjogMS4x?=\r
+MIME-Version: 1.0\r
+Content-Type: text/plain; charset=utf-8\r
+Content-Transfer-Encoding: base64\r
+\r
+VGVzdA0KLg0KUVVJVA==\r
+.\r
+QUIT\r
+",
+            $this->smtpServer->getContent()
+        );
+    }
 }
