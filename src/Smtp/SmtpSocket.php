@@ -35,7 +35,7 @@ class SmtpSocket
             $content = \trim(\substr($response, 4));
 
             if (!\in_array($code, $expectedCodes, true)) {
-                throw new SmtpException($response, $code);
+                throw SmtpException::unexpectedResponse($response);
             }
 
             return new SmtpResponse($code, $content);
