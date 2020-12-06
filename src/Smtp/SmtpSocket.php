@@ -6,6 +6,7 @@ namespace Vajexal\AmpMailer\Smtp;
 
 use Amp\Promise;
 use Amp\Socket\EncryptableSocket;
+use Amp\Socket\SocketException;
 use Psr\Log\LoggerInterface;
 use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use function Amp\call;
@@ -43,6 +44,10 @@ class SmtpSocket
 
     public function encrypt(): Promise
     {
-        return $this->socket->setupTls();
+        try {
+            return $this->socket->setupTls();
+        } catch (SocketException $e) {
+            throw SmtpException::unableToSetupTls($e);
+        }
     }
 }
