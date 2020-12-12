@@ -27,6 +27,14 @@ class MailCommand implements Command
 
         $email = $this->encoder->encode($mail->getFrom()->getEmail());
 
-        yield $socket->send(\sprintf('MAIL FROM:<%s>', $email), [250]);
+        $command = \sprintf('MAIL FROM:<%s>', $email);
+
+        if ($server->getSize() && $mail->getRawMessage()) {
+            $messageSize = \strlen($mail->getRawMessage()) - \strlen('.');
+
+            $command = \sprintf('%s SIZE=%d', $command, $messageSize);
+        }
+
+        yield $socket->send($command, [250]);
     }
 }

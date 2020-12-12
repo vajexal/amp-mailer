@@ -19,7 +19,8 @@ class Mail
     private ?string $text    = null;
     private ?string $html    = null;
     /** @var Attachment[] */
-    private array $attachments = [];
+    private array  $attachments = [];
+    private string $rawMessage  = ''; // todo refactor
 
     public function getFrom(): ?Address
     {
@@ -157,5 +158,17 @@ class Mail
         $this->inline($attachment);
 
         return 'cid:' . $attachment->getId();
+    }
+
+    public function getRawMessage(): string
+    {
+        return $this->rawMessage;
+    }
+
+    public function rawMessage(string $rawMessage): self
+    {
+        $this->rawMessage = $rawMessage;
+
+        return $this;
     }
 }

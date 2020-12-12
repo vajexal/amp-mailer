@@ -7,9 +7,9 @@ namespace Vajexal\AmpMailer\Tests;
 use Amp\Socket\ResourceSocket;
 use Amp\Socket\Server;
 use Amp\Socket\SocketAddress;
-use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 use function Amp\call;
 use function Amp\Promise\rethrow;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class DumpSmtpServer
 {
@@ -22,7 +22,8 @@ class DumpSmtpServer
     ];
 
     private Server $server;
-    private string $content = '';
+    private string $content         = '';
+    private array  $customResponses = [];
 
     public function start(): SocketAddress
     {
@@ -43,7 +44,13 @@ class DumpSmtpServer
                     continue;
                 }
 
-                yield $socket->write(self::RESPONSES[$command] . ' OK' . SMTP_LINE_BREAK);
+                if (isset($this->customResponses[$command])) {
+                    yield $socket->write($this->customResponses[$command] . SMTP_LINE_BREAK);
+
+                    continue;
+                }
+
+                yield $socket->write(\sprintf('%d OK%s', self::RESPONSES[$command], SMTP_LINE_BREAK));
 
                 if ($command === 'QUIT') {
                     $socket->close();
@@ -68,5 +75,10 @@ class DumpSmtpServer
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function addCustomResponse(string $command, string $response): void
+    {
+        $this->customResponses[$command] = $response;
     }
 }

@@ -212,4 +212,38 @@ QUIT\r
             $this->smtpServer->getContent()
         );
     }
+
+    public function testMessageSize()
+    {
+        $this->smtpServer->addCustomResponse('EHLO', "250-localhost\r\n250 SIZE 1048576");
+
+        $mail = (new Mail)
+            ->from('from@example.com')
+            ->to('to@example.com')
+            ->subject('Test')
+            ->text('Test');
+
+        yield $this->mailer->send($mail);
+
+        $this->assertOutputMatchesPatternLineByLine(
+            "EHLO [\w.]+\r
+MAIL FROM:<from@example\.com> SIZE=\d+\r
+RCPT TO:<to@example.com>\r
+DATA\r
+Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
+From: from@example.com\r
+To: to@example.com\r
+Message-ID: <[\w.]+@[\w.]+>\r
+Subject: Test\r
+MIME-Version: 1.0\r
+Content-Type: text/plain; charset=utf-8\r
+Content-Transfer-Encoding: base64\r
+\r
+VGVzdA==\r
+.\r
+QUIT\r
+",
+            $this->smtpServer->getContent()
+        );
+    }
 }

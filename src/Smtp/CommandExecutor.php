@@ -26,11 +26,4 @@ class CommandExecutor
     {
         return call([$command, 'execute'], $this->socket, $this->server, $this->mail);
     }
-
-    public function setMail(Mail $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
 }

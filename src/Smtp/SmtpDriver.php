@@ -47,16 +47,16 @@ class SmtpDriver implements Driver
 
                 $mail->setBcc([]);
 
-                $executor->setMail($mail);
+                $executor = new CommandExecutor($socket, $server, $mail);
 
                 if ($mail->getTo()) {
-                    yield $this->performSend($executor);
+                    yield $this->performSend($executor, $mail);
                 }
 
                 foreach ($bcc as $address) {
                     $mail->setBcc([$address]);
 
-                    yield $this->performSend($executor);
+                    yield $this->performSend($executor, $mail);
                 }
             }
 
@@ -66,9 +66,13 @@ class SmtpDriver implements Driver
         });
     }
 
-    private function performSend(CommandExecutor $executor): Promise
+    private function performSend(CommandExecutor $executor, Mail $mail): Promise
     {
-        return call(function () use ($executor) {
+        return call(function () use ($executor, $mail) {
+            $mailMessageBuilder = DiLocator::mailMessageBuilder();
+
+            $mail->rawMessage($mailMessageBuilder->build($mail));
+
             yield $executor->execute(DiLocator::mailCommand());
             yield $executor->execute(DiLocator::recipientCommand());
             yield $executor->execute(DiLocator::dataCommand());

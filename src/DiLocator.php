@@ -36,6 +36,7 @@ use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\PunycodeEmailEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Header\HeaderEncoder;
 use Vajexal\AmpMailer\Smtp\Encoder\Header\QpMimeEncoder;
+use Vajexal\AmpMailer\Smtp\MailMessageBuilder;
 use Vajexal\AmpMailer\Smtp\Mime\MimeBuilder;
 
 class DiLocator
@@ -72,7 +73,7 @@ class DiLocator
 
     public static function dataCommand(): DataCommand
     {
-        return new DataCommand(self::emailEncoder(), self::headerEncoder(), self::mimeBuilder());
+        return new DataCommand(self::mailMessageBuilder());
     }
 
     public static function quitCommand(): QuitCommand
@@ -98,6 +99,11 @@ class DiLocator
     public static function mimeBuilder(): MimeBuilder
     {
         return new MimeBuilder(self::bodyEncoder());
+    }
+
+    public static function mailMessageBuilder(): MailMessageBuilder
+    {
+        return new MailMessageBuilder(self::mimeBuilder());
     }
 
     public static function hostDetector(): HostDetector

@@ -14,7 +14,7 @@ class SmtpServer
     /** @var SplPriorityQueue<AuthStrategy> */
     private SplPriorityQueue $authStrategies;
     private bool             $supportsTls = false;
-    private ?int             $size;
+    private ?int             $size        = null;
 
     public function __construct(ConnectionConfig $connectionConfig)
     {
