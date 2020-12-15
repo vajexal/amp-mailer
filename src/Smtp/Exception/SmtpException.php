@@ -33,4 +33,9 @@ class SmtpException extends Exception
     {
         return new static(\sprintf('Unexpected response: %s', $response), self::UNEXPECTED_RESPONSE_CODE);
     }
+
+    public static function brokenPipeline(): self
+    {
+        return new static('Broken pipeline. Check logs for more info');
+    }
 }

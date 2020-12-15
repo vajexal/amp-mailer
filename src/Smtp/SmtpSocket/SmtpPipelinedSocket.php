@@ -11,6 +11,7 @@ use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use Vajexal\AmpMailer\Smtp\SmtpRequest;
 use Vajexal\AmpMailer\Smtp\SmtpResponse;
 use const Vajexal\AmpMailer\Smtp\RESPONSE_CODE_LENGTH;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 use function Amp\call;
 
 class SmtpPipelinedSocket extends SmtpSocket
@@ -36,10 +37,21 @@ class SmtpPipelinedSocket extends SmtpSocket
                 }
             }
 
-            $response = null;
+            $responses = [];
+            $response  = null;
 
             foreach ($this->buffer as $request) {
-                $response = yield $this->read();
+                if (empty($responses)) {
+                    $response     = yield $this->read();
+                    $newResponses = \explode(SMTP_LINE_BREAK, \trim($response));
+                    $responses    = \array_merge($responses, $newResponses);
+                }
+
+                $response = \array_shift($responses);
+
+                if (!$response) {
+                    throw SmtpException::brokenPipeline();
+                }
 
                 $code    = (int) \substr($response, 0, RESPONSE_CODE_LENGTH);
                 $content = \trim(\substr($response, RESPONSE_CODE_LENGTH + 1));
@@ -52,6 +64,10 @@ class SmtpPipelinedSocket extends SmtpSocket
             }
 
             $this->buffer = [];
+
+            if (!$response) {
+                throw SmtpException::brokenPipeline();
+            }
 
             return $response;
         });
