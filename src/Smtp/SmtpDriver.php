@@ -14,6 +14,8 @@ use Vajexal\AmpMailer\DiLocator;
 use Vajexal\AmpMailer\Driver;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SimpleSmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpPipelinedSocket;
 use function Amp\call;
 use function Amp\Socket\connect;
 
@@ -33,11 +35,15 @@ class SmtpDriver implements Driver
     {
         return call(function () use ($mails) {
             $tcpSocket = yield $this->openTcpSocket();
-            $socket    = new SmtpSocket($tcpSocket, $this->logger);
+            $socket    = new SimpleSmtpSocket($tcpSocket, $this->logger);
             $server    = new SmtpServer($this->connectionConfig);
             $executor  = new CommandExecutor($socket, $server, new Mail);
 
             yield $this->startSession($executor, $server);
+
+            if ($server->supportsPipelining()) {
+                $socket = new SmtpPipelinedSocket($tcpSocket, $this->logger);
+            }
 
             /** @var Mail $mail */
             foreach ($mails as $mail) {

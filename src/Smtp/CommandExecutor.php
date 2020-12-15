@@ -7,6 +7,7 @@ namespace Vajexal\AmpMailer\Smtp;
 use Amp\Promise;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Command\Command;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 use function Amp\call;
 
 class CommandExecutor

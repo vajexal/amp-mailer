@@ -14,6 +14,7 @@ use Vajexal\AmpMailer\Smtp\Command\AuthCommand;
 use Vajexal\AmpMailer\Smtp\Command\DataCommand;
 use Vajexal\AmpMailer\Smtp\Command\EhloCommand;
 use Vajexal\AmpMailer\Smtp\Command\Extension\AuthExtension;
+use Vajexal\AmpMailer\Smtp\Command\Extension\PipeliningExtension;
 use Vajexal\AmpMailer\Smtp\Command\Extension\SizeExtension;
 use Vajexal\AmpMailer\Smtp\Command\Extension\TlsExtension;
 use Vajexal\AmpMailer\Smtp\Command\Header\BccHeader;
@@ -174,6 +175,11 @@ class DiLocator
     public static function sizeExtension(): SizeExtension
     {
         return new SizeExtension;
+    }
+
+    public static function pipeliningExtension(): PipeliningExtension
+    {
+        return new PipeliningExtension;
     }
 
     public static function cramMd5AuthStrategy(): CramMd5AuthStrategy

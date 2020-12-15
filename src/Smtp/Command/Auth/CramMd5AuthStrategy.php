@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Vajexal\AmpMailer\Smtp\Command\Auth;
 
 use Vajexal\AmpMailer\Mail;
+use Vajexal\AmpMailer\Smtp\Command\AuthCommand;
 use Vajexal\AmpMailer\Smtp\SmtpResponse;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
-use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class CramMd5AuthStrategy implements AuthStrategy
 {
@@ -19,7 +20,7 @@ class CramMd5AuthStrategy implements AuthStrategy
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
         /** @var SmtpResponse $response */
-        $response = yield $socket->send('AUTH CRAM-MD5', [334]);
+        $response = yield $socket->send(\sprintf('%s CRAM-MD5', AuthCommand::COMMAND), [334]);
 
         $challenge        = \base64_decode($response->getContent());
         $connectionConfig = $server->getConnectionConfig();

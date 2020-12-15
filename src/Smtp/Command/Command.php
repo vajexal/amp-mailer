@@ -7,7 +7,7 @@ namespace Vajexal\AmpMailer\Smtp\Command;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
-use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 interface Command
 {

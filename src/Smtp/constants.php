@@ -10,3 +10,5 @@ const SMTP_LINE_BREAK           = "\r\n";
 
 const QP_MIME_BASE64_SCHEME           = 'B';
 const QP_MIME_QUOTED_PRINTABLE_SCHEME = 'Q';
+
+const RESPONSE_CODE_LENGTH = 3;

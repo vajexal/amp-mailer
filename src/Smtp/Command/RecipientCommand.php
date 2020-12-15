@@ -8,10 +8,12 @@ use Vajexal\AmpMailer\Exception\MailException;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
-use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class RecipientCommand implements Command
 {
+    public const COMMAND = 'RCPT';
+
     private EmailEncoder $encoder;
 
     public function __construct(EmailEncoder $encoder)
@@ -30,7 +32,7 @@ class RecipientCommand implements Command
         foreach ($addresses as $address) {
             $email = $this->encoder->encode($address->getEmail());
 
-            yield $socket->send(\sprintf('RCPT TO:<%s>', $email), [250, 251]);
+            yield $socket->send(\sprintf('%s TO:<%s>', self::COMMAND, $email), [250, 251]);
         }
     }
 }

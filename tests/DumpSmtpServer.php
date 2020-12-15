@@ -7,9 +7,9 @@ namespace Vajexal\AmpMailer\Tests;
 use Amp\Socket\ResourceSocket;
 use Amp\Socket\Server;
 use Amp\Socket\SocketAddress;
+use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 use function Amp\call;
 use function Amp\Promise\rethrow;
-use const Vajexal\AmpMailer\Smtp\SMTP_LINE_BREAK;
 
 class DumpSmtpServer
 {

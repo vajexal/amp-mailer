@@ -13,8 +13,9 @@ class SmtpServer
     private bool             $supportsAuth = false;
     /** @var SplPriorityQueue<AuthStrategy> */
     private SplPriorityQueue $authStrategies;
-    private bool             $supportsTls = false;
-    private ?int             $size        = null;
+    private bool             $supportsTls        = false;
+    private ?int             $size               = null;
+    private bool             $supportsPipelining = false;
 
     public function __construct(ConnectionConfig $connectionConfig)
     {
@@ -71,6 +72,18 @@ class SmtpServer
     public function setSize(int $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function supportsPipelining(): bool
+    {
+        return $this->supportsPipelining;
+    }
+
+    public function setSupportsPipelining(bool $supportsPipelining = true): self
+    {
+        $this->supportsPipelining = $supportsPipelining;
 
         return $this;
     }

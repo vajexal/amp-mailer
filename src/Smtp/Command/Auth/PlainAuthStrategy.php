@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Vajexal\AmpMailer\Smtp\Command\Auth;
 
 use Vajexal\AmpMailer\Mail;
+use Vajexal\AmpMailer\Smtp\Command\AuthCommand;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
-use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class PlainAuthStrategy implements AuthStrategy
 {
@@ -17,10 +18,12 @@ class PlainAuthStrategy implements AuthStrategy
 
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
-        yield $socket->send('AUTH LOGIN', [334]);
+        yield $socket->send(\sprintf('%s PLAIN', AuthCommand::COMMAND), [334]);
 
         $connectionConfig = $server->getConnectionConfig();
 
-        yield $socket->send(\base64_encode(\sprintf("\0%s\0%s", $connectionConfig->getUsername(), $connectionConfig->getPassword())), [235]);
+        $credentials = \base64_encode(\sprintf("\0%s\0%s", $connectionConfig->getUsername(), $connectionConfig->getPassword()));
+
+        yield $socket->send($credentials, [235]);
     }
 }

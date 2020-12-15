@@ -8,10 +8,12 @@ use Vajexal\AmpMailer\Exception\MailException;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Smtp\Encoder\Email\EmailEncoder;
 use Vajexal\AmpMailer\Smtp\SmtpServer;
-use Vajexal\AmpMailer\Smtp\SmtpSocket;
+use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class MailCommand implements Command
 {
+    public const COMMAND = 'MAIL';
+
     private EmailEncoder $encoder;
 
     public function __construct(EmailEncoder $encoder)
@@ -27,7 +29,7 @@ class MailCommand implements Command
 
         $email = $this->encoder->encode($mail->getFrom()->getEmail());
 
-        $command = \sprintf('MAIL FROM:<%s>', $email);
+        $command = \sprintf('%s FROM:<%s>', self::COMMAND, $email);
 
         if ($server->getSize() && $mail->getRawMessage()) {
             $messageSize = \strlen($mail->getRawMessage()) - \strlen('.');

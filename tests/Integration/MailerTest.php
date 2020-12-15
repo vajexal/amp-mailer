@@ -9,7 +9,6 @@ use Amp\Http\Client\HttpClientBuilder;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Mailer;
 use Vajexal\AmpMailer\MailerBuilder;
-use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use Vajexal\AmpMailer\Tests\Integration\Mailtrap\Inbox;
 use Vajexal\AmpMailer\Tests\Integration\Mailtrap\MailtrapClient;
 use Vajexal\AmpMailer\Tests\Integration\Mailtrap\Message;
@@ -36,25 +35,6 @@ class MailerTest extends TestCase
             ->username($this->inbox->getUsername())
             ->password($this->inbox->getPassword())
             ->build();
-    }
-
-    public function testAuthIsRequired()
-    {
-        $this->expectException(SmtpException::class);
-        $this->expectExceptionMessage('Authentication required');
-
-        $mailer = (new MailerBuilder)
-            ->host($this->inbox->getHost())
-            ->port($this->inbox->getPort())
-            ->build();
-
-        $mail = (new Mail)
-            ->from('from@example.com')
-            ->to('to@example.com')
-            ->subject('Test')
-            ->text('Test');
-
-        yield $mailer->send($mail);
     }
 
     public function testUnicode()
