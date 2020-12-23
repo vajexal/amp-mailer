@@ -48,3 +48,6 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/phpunit
+        env:
+          MAILTRAP_API_TOKEN: ${{ secrets.MAILTRAP_API_TOKEN }}
+          MAILTRAP_TEST_INBOX_ID: ${{ secrets.MAILTRAP_TEST_INBOX_ID }}
