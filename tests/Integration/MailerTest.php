@@ -20,6 +20,15 @@ class MailerTest extends TestCase
     private Inbox          $inbox;
     private Mailer         $mailer;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (!\getenv('MAILTRAP_API_TOKEN') || !(int) \getenv('MAILTRAP_TEST_INBOX_ID')) {
+            $this->markTestSkipped('MAILTRAP_API_TOKEN and MAILTRAP_TEST_INBOX_ID env vars should be provided');
+        }
+    }
+
     protected function setUpAsync()
     {
         parent::setUpAsync();
