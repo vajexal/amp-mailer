@@ -1,5 +1,7 @@
 Sending mail using SMTP and [amphp](https://amphp.org)
 
+[![Build Status](https://github.com/vajexal/amp-mailer/workflows/Build/badge.svg)](https://github.com/vajexal/amp-mailer/actions)
+
 ### Installation
 
 ```bash
