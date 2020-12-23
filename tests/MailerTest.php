@@ -47,14 +47,14 @@ class MailerTest extends TestCase
         yield $this->mailer->send($mail);
 
         $this->assertOutputMatchesPattern(
-            "EHLO [\w.]+\r
+            "EHLO [\w\-.]+\r
 MAIL FROM:<from@example.com>\r
 RCPT TO:<to@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
 From: from@example.com\r
 To: to@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -82,7 +82,7 @@ QUIT\r
         yield $this->mailer->send($mail);
 
         $this->assertOutputMatchesPattern(
-            "EHLO [\w.]+\r
+            "EHLO [\w\-.]+\r
 MAIL FROM:<from@example.com>\r
 RCPT TO:<to@example.com>\r
 RCPT TO:<cc1@example.com>\r
@@ -94,7 +94,7 @@ Reply-To: reply <reply@example.com>\r
 To: to <to@example.com>\r
 Cc: cc1 <cc1@example.com>,\r
  cc2@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -123,7 +123,7 @@ QUIT\r
         yield $this->mailer->send($mail);
 
         $this->assertOutputMatchesPattern(
-            "EHLO [\w.]+\r
+            "EHLO [\w\-.]+\r
 MAIL FROM:<from@example.com>\r
 RCPT TO:<to@example.com>\r
 RCPT TO:<cc@example.com>\r
@@ -133,7 +133,7 @@ From: from@example.com\r
 Reply-To: reply@example.com\r
 To: to@example.com\r
 Cc: cc@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -150,7 +150,7 @@ Reply-To: reply@example.com\r
 To: to@example.com\r
 Cc: cc@example.com\r
 Bcc: bcc1@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -167,7 +167,7 @@ Reply-To: reply@example.com\r
 To: to@example.com\r
 Cc: cc@example.com\r
 Bcc: bcc2@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -192,14 +192,14 @@ QUIT\r
         yield $this->mailer->send($mail);
 
         $this->assertOutputMatchesPattern(
-            "EHLO [\w.]+\r
+            "EHLO [\w\-.]+\r
 MAIL FROM:<from@example.com>\r
 RCPT TO:<to@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
 From: from@example.com\r
 To: =?UTF-8?B?dG9UbzogaGFja0BleGFtcGxlLmNvbQ==?= <to@example.com>\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: =?UTF-8?B?VGVzdE1JTUUtVmVyc2lvbjogMS4x?=\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
@@ -226,14 +226,14 @@ QUIT\r
         yield $this->mailer->send($mail);
 
         $this->assertOutputMatchesPatternLineByLine(
-            "EHLO [\w.]+\r
+            "EHLO [\w\-.]+\r
 MAIL FROM:<from@example\.com> SIZE=\d+\r
 RCPT TO:<to@example.com>\r
 DATA\r
 Date: \w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} \+\d{4}\r
 From: from@example.com\r
 To: to@example.com\r
-Message-ID: <[\w.]+@[\w.]+>\r
+Message-ID: <[\w.]+@[\w\-.]+>\r
 Subject: Test\r
 MIME-Version: 1.0\r
 Content-Type: text/plain; charset=utf-8\r
