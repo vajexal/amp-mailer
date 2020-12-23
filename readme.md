@@ -1,6 +1,7 @@
 Sending mail using SMTP and [amphp](https://amphp.org)
 
 [![Build Status](https://github.com/vajexal/amp-mailer/workflows/Build/badge.svg)](https://github.com/vajexal/amp-mailer/actions)
+[![codecov](https://codecov.io/gh/vajexal/amp-mailer/branch/master/graph/badge.svg?token=1QO3Q05WSN)](https://codecov.io/gh/vajexal/amp-mailer)
 
 ### Installation
 
