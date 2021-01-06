@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vajexal\AmpMailer\Tests\Integration\Mailtrap;
+namespace Vajexal\AmpMailer\Tests\Mailtrap;
 
 class Inbox
 {

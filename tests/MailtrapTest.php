@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Vajexal\AmpMailer\Tests\Integration;
+namespace Vajexal\AmpMailer\Tests;
 
 use Amp\Delayed;
 use Amp\Http\Client\HttpClientBuilder;
 use Vajexal\AmpMailer\Mail;
 use Vajexal\AmpMailer\Mailer;
 use Vajexal\AmpMailer\MailerBuilder;
-use Vajexal\AmpMailer\Tests\Integration\Mailtrap\Inbox;
-use Vajexal\AmpMailer\Tests\Integration\Mailtrap\MailtrapClient;
-use Vajexal\AmpMailer\Tests\Integration\Mailtrap\Message;
-use Vajexal\AmpMailer\Tests\TestCase;
+use Vajexal\AmpMailer\Tests\Mailtrap\Inbox;
+use Vajexal\AmpMailer\Tests\Mailtrap\MailtrapClient;
+use Vajexal\AmpMailer\Tests\Mailtrap\Message;
 
-class MailerTest extends TestCase
+class MailtrapTest extends TestCase
 {
     private MailtrapClient $mailtrapClient;
     private Inbox          $inbox;
