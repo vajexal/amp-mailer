@@ -13,7 +13,7 @@
         "amphp/file": "^1.0",
         "amphp/log": "^1.1",
         "amphp/socket": "^1.1",
-        "egulias/email-validator": "^2.1",
+        "egulias/email-validator": "^3.0",
         "vajexal/amp-mime-type": "dev-master"
     },
     "require-dev": {
