@@ -11,8 +11,6 @@ use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class DataCommand implements Command
 {
-    public const COMMAND = 'DATA';
-
     private MailMessageBuilder $mailMessageBuilder;
 
     public function __construct(MailMessageBuilder $mailMessageBuilder)
@@ -22,7 +20,7 @@ class DataCommand implements Command
 
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
-        yield $socket->send(self::COMMAND, [354]);
+        yield $socket->send('DATA', [354]);
 
         $message = $mail->getRawMessage() ?: $this->mailMessageBuilder->build($mail);
 

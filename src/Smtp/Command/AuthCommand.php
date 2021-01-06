@@ -13,8 +13,6 @@ use function Amp\call;
 
 class AuthCommand implements Command
 {
-    public const COMMAND = 'AUTH';
-
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
         $strategies = $server->getAuthStrategies();

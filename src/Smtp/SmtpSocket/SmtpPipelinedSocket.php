@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Vajexal\AmpMailer\Smtp\SmtpSocket;
 
 use Amp\Promise;
-use Vajexal\AmpMailer\Smtp\Command\MailCommand;
-use Vajexal\AmpMailer\Smtp\Command\RecipientCommand;
 use Vajexal\AmpMailer\Smtp\Exception\SmtpException;
 use Vajexal\AmpMailer\Smtp\SmtpRequest;
 use Vajexal\AmpMailer\Smtp\SmtpResponse;
@@ -17,8 +15,8 @@ use function Amp\call;
 class SmtpPipelinedSocket extends SmtpSocket
 {
     private const PIPELINED_COMMANDS = [
-        MailCommand::COMMAND,
-        RecipientCommand::COMMAND,
+        'MAIL',
+        'RCPT',
     ];
 
     /** @var SmtpRequest[] */

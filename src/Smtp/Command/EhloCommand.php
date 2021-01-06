@@ -14,8 +14,6 @@ use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class EhloCommand implements Command
 {
-    public const COMMAND = 'EHLO';
-
     private HostDetector $hostDetector;
     /** @var Extension[] */
     private array $extensions;
@@ -34,7 +32,7 @@ class EhloCommand implements Command
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
         /** @var SmtpResponse $response */
-        $response = yield $socket->send(\sprintf('%s %s', self::COMMAND, $this->hostDetector->getHost()), [250]);
+        $response = yield $socket->send(\sprintf('EHLO %s', $this->hostDetector->getHost()), [250]);
 
         foreach ($this->extensions as $extension) {
             $extension->check($response->getContent(), $server);

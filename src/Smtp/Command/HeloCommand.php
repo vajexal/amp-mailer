@@ -11,8 +11,6 @@ use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class HeloCommand implements Command
 {
-    public const COMMAND = 'HELO';
-
     private HostDetector $hostDetector;
 
     public function __construct(HostDetector $hostDetector)
@@ -22,6 +20,6 @@ class HeloCommand implements Command
 
     public function execute(SmtpSocket $socket, SmtpServer $server, Mail $mail)
     {
-        yield $socket->send(\sprintf('%s %s', self::COMMAND, $this->hostDetector->getHost()), [250]);
+        yield $socket->send(\sprintf('HELO %s', $this->hostDetector->getHost()), [250]);
     }
 }

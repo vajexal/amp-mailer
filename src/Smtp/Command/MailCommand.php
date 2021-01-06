@@ -12,8 +12,6 @@ use Vajexal\AmpMailer\Smtp\SmtpSocket\SmtpSocket;
 
 class MailCommand implements Command
 {
-    public const COMMAND = 'MAIL';
-
     private EmailEncoder $encoder;
 
     public function __construct(EmailEncoder $encoder)
@@ -29,7 +27,7 @@ class MailCommand implements Command
 
         $email = $this->encoder->encode($mail->getFrom()->getEmail());
 
-        $command = \sprintf('%s FROM:<%s>', self::COMMAND, $email);
+        $command = \sprintf('MAIL FROM:<%s>', $email);
 
         if ($server->getSize() && $mail->getRawMessage()) {
             $messageSize = \strlen($mail->getRawMessage()) - \strlen('.');
