@@ -10,7 +10,7 @@ class SizeExtension implements Extension
 {
     public function check(string $response, SmtpServer $server): void
     {
-        if (!\preg_match('/^250[- ]SIZE(?: (\d+))?\s?$/mi', $response, $matches)) {
+        if (!\preg_match('/^250[- ]SIZE ?(\d+)?\s?$/mi', $response, $matches)) {
             return;
         }
 
