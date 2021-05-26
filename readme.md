@@ -6,7 +6,7 @@ Sending mail using SMTP and [amphp](https://amphp.org)
 ### Installation
 
 ```bash
-composer require vajexal/amp-mailer:dev-master
+composer require vajexal/amp-mailer
 ```
 
 ### Usage
