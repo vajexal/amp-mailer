@@ -15,12 +15,12 @@
         "amphp/log": "^1.1",
         "amphp/socket": "^1.1",
         "egulias/email-validator": "^3.0",
-        "vajexal/amp-mime-type": "dev-master"
+        "vajexal/amp-mime-type": "^0.1.0"
     },
     "require-dev": {
         "ext-json": "*",
         "amphp/http-client": "^4.5",
-        "amphp/php-cs-fixer-config": "dev-master#e8930dcb166f4bcbc8bd3c37e5535bd8960ffea9",
+        "amphp/php-cs-fixer-config": "dev-master",
         "amphp/phpunit-util": "^1.4",
         "amphp/process": "^1.1",
         "sebastian/diff": "^4.0"
